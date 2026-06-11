@@ -1,0 +1,35 @@
+services:
+  moodleusp:
+    image: moodleusp:latest
+    container_name: moodleusp
+    ports:
+      - "8000:80"
+    depends_on:
+      - mariadb
+    networks:
+      - moodleusp-network
+    volumes:
+      - ./:/var/www/html
+    environment:
+      HOME: /tmp
+    user: "${UID:-1000}:${GID:-1000}"
+
+  mariadb:
+    image: mariadb:11
+    container_name: moodleusp_mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: moodleusp
+      MYSQL_USER: moodleusp
+      MYSQL_PASSWORD: moodleusp
+      MYSQL_ROOT_PASSWORD: moodleusp
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - moodleusp-network
+
+networks:
+  moodleusp-network:
+
+volumes:
+  mariadb_data:
