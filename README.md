@@ -12,3 +12,16 @@ Subindo ambiente:
 
     rm moodle/config.php & docker exec -it moodleusp /install.sh
 
+
+    docker exec -it moodleusp bash
+    cd uspdb-sync/
+
+    php sync.php -v -r all
+
+
+    docker exec -it moodleusp_mariadb bash
+    mariadb -uroot -pmoodleusp
+    use moodleusp;
+
+    Criar a tabela sync_times.sql
+

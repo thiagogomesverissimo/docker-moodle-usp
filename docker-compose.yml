@@ -21,6 +21,7 @@ services:
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
+      - --max_allowed_packet=1024M
     container_name: moodleusp_mariadb
     restart: always
     environment:
