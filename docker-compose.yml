@@ -10,12 +10,17 @@ services:
       - moodleusp-network
     volumes:
       - ./:/var/www/html
+      - ./docker/moodleusp/install.sh:/install.sh
+      - moodledata:/var/www/moodledata
     environment:
       HOME: /tmp
     user: "${UID:-1000}:${GID:-1000}"
 
   mariadb:
     image: mariadb:11
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
     container_name: moodleusp_mariadb
     restart: always
     environment:
@@ -23,6 +28,7 @@ services:
       MYSQL_USER: moodleusp
       MYSQL_PASSWORD: moodleusp
       MYSQL_ROOT_PASSWORD: moodleusp
+
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
@@ -33,3 +39,4 @@ networks:
 
 volumes:
   mariadb_data:
+  moodledata:

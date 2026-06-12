@@ -15,7 +15,10 @@ RUN sed -i 's|main|main non-free|' /etc/apt/sources.list.d/debian.sources && apt
     libxml2-dev \
     libjpeg-dev \
     libpng-dev \
-    libfreetype6-dev \ 
+    libfreetype6-dev \
+    libxslt1-dev \
+    libcurl4-openssl-dev \
+    libxslt1-dev \
     curl
 
 # cleanup
@@ -28,11 +31,14 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN docker-php-ext-install \
     intl \
     pdo_mysql \
+    mysqli \
     soap \
     zip \
     mbstring \
     bcmath \
-    pdo_dblib
+    pdo_dblib \
+    xsl \
+    curl
 
 # gd
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
@@ -45,6 +51,7 @@ RUN { \
         echo 'memory_limit=${PHP_MEMORY_LIMIT}'; \
         echo 'upload_max_filesize=${PHP_UPLOAD_LIMIT}'; \
         echo 'post_max_size=${PHP_UPLOAD_LIMIT}'; \
+        echo 'max_input_vars=5000'; \
     } > "${PHP_INI_DIR}/conf.d/upload.ini"
 
 # apache

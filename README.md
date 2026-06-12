@@ -10,3 +10,5 @@ Subindo ambiente:
     docker build --no-cache -t moodleusp .
     docker compose up
 
+    rm moodle/config.php & docker exec -it moodleusp /install.sh
+
