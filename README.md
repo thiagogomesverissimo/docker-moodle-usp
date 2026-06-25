@@ -77,6 +77,12 @@ done
 
     php sync.php -v -r -d config-local-dev.php responsaveledicaoceu colegiadoceu cursoceu edicaocursoofeceu edicaocursoceu modalidcursoceu matriculaatividadeceu atividadeceu atividadeprogramaceu ministranteceu alunoceu matriculacursoceu programacursoceu
 
+
+
+## Reunião com Ettore 2026/Jun
+
+- Painel Administrativo
+
     
 
 

@@ -35,6 +35,22 @@ services:
     networks:
       - moodleusp-network
 
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: moodleusp_phpmyadmin
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: moodleusp
+    networks:
+      - moodleusp-network
+
 networks:
   moodleusp-network:
 
