@@ -1,6 +1,6 @@
 services:
   moodleusp:
-    image: moodleusp:latest
+    build: .
     container_name: moodleusp
     ports:
       - "8000:80"
@@ -48,6 +48,27 @@ services:
       PMA_PORT: 3306
       PMA_USER: root
       PMA_PASSWORD: moodleusp
+    networks:
+      - moodleusp-network
+
+  senhaunica-faker:
+    image: uspdev/senhaunica-faker
+    container_name: moodleusp_senhaunica-faker
+    ports:
+      - "3141:3141"
+    environment:
+          - APP_URL=http://auth.local:3141
+    networks:
+      moodleusp-network:
+        aliases:
+          - auth.local
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: moodleusp_mailpit
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Interface Web
     networks:
       - moodleusp-network
 

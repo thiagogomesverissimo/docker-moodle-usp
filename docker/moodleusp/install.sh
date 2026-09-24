@@ -5,6 +5,12 @@ set -e
 MOODLE_DIR="/var/www/html/moodle"
 MOODLEDATA="/var/www/html/moodledata"
 
+# Variáveis do SMTP / Mailpit
+MAIL_HOST="mailpit"
+MAIL_PORT="1025"
+MAIL_ENCRYPTION="none" # Moodle utiliza 'none', 'ssl' ou 'tls'
+MAIL_FROM_ADDRESS="moodleusp@example.com"
+
 mkdir -p "$MOODLEDATA"
 
 echo "Aguardando MariaDB..."
@@ -42,4 +48,9 @@ if [ ! -f "$MOODLE_DIR/config.php" ]; then
         --adminemail='admin@example.com' \
         --non-interactive \
         --agree-license
+
+    echo "Configurando SMTP (Mailpit)..."
+    php "$MOODLE_DIR/admin/cli/cfg.php" --name=smtphosts --set="${MAIL_HOST}:${MAIL_PORT}"
+    php "$MOODLE_DIR/admin/cli/cfg.php" --name=smtpsecure --set="${MAIL_ENCRYPTION}"
+    php "$MOODLE_DIR/admin/cli/cfg.php" --name=noreplyaddress --set="${MAIL_FROM_ADDRESS}"
 fi

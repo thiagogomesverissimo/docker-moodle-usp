@@ -1,15 +1,20 @@
 ### Subindo ambiente
 
-    cd ..
-    docker build --no-cache -t moodleusp .
-    docker compose up
+    docker compose up --build
 
-### Moodle
+### edisciplinas
 
     git clone git@gitlab.uspdigital.usp.br:atp/uspdb-sync.git
     git clone git@gitlab.uspdigital.usp.br:atp/moodle.git
     cd moodle
-    git checkout extensao # ou edisc
+    git checkout edisc
+
+### extensão
+
+    git clone git@gitlab.uspdigital.usp.br:atp/moodle.git
+    cd moodle
+    git checkout extensao
+    cd ..
 
 ## Instalação do Moodle 
 
